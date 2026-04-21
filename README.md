@@ -1,32 +1,80 @@
 # codex-obsidian-memory-starter
 
-`Codex hooks` と `Obsidian` を使って、episode-first の外部記憶運用を最小構成で再現するためのスターターです。記事「Codex hooks と Obsidian で作る海馬的超短期型の外部記憶運用」と矛盾しないよう、実装は次の流れだけに絞っています。
+`Codex hooks` と `Obsidian` を使って、episode-first の外部記憶運用を自分の環境で再現するための starter repository です。
 
-- `SessionStart`: vault 全体ではなく、直近の `ultra_short` と現在 project の recent `episodes` だけ読む
-- `UserPromptSubmit`: 送信直後の prompt を `ultra_short` へ即時保存し、project に紐づくものだけ `episodes` にも短く残す
-- `Stop`: 会話の一区切りを `episodes` に追記する
+この repo は、作者の実運用環境そのものを配るものではありません。読者が clone して、自分の Vault と自分の workspace に合わせて最小構成から組み立て直せるように、配布向けに一般化した再現パックです。
 
-## これは何を読むか
+## Status
 
-この starter が自動で読む対象は次の 2 系統です。
+- 現在は公開準備中の starter です
+- 関連記事は未公開です
+- 記事 URL や最終的な公開文言は、記事確定後に差し替える前提です
+- GitHub へ上げる場合も、まずは `private` で確認してから `public` に切り替える想定です
 
-- `vault/episodes/ultra_short/*.md` の直近エントリ
-- 現在の project に一致した `vault/episodes/*.md` の recent note
+記事公開後に追記する想定の欄:
+
+- Related article: `TBD`
+- Demo / screenshots: `TBD`
+- License: `TBD`
+
+## Who This Is For
+
+この repo は次の人向けです。
+
+- Codex の hook を使って会話の断片を外部化したい人
+- Obsidian を knowledge-first ではなく episode-first の保存庫として使いたい人
+- 自分の環境に合わせて `workspace_hints` や project note を調整できる人
+
+逆に、作者の Vault をそのまま欲しい人向けではありません。実データや個人的 note 本文は含めません。
+
+## What This Repo Does
+
+この starter は、次の 3 本の hook flow だけを再現対象に絞っています。
+
+- `SessionStart`
+  vault 全体は読まず、直近の `ultra_short` と現在 project の recent `episodes` だけを少量読む
+- `UserPromptSubmit`
+  送信直後の prompt を `ultra_short` に即時保存し、project に紐づくものだけ `episodes` にも短く残す
+- `Stop`
+  会話の一区切りを `episodes` に追記する
+
+## What This Repo Does Not Do
+
+この repo は次のものを配りません。
+
+- 作者の実 Vault 本文
+- 実運用中の `logs` や `state`
+- token や認証情報
+- project ごとの完成済み promotion heuristic
+- 長期 knowledge の自動昇格ルール一式
+
+つまり、これは完成済みの personal system ではなく、読者が自分の環境で再現するための starter です。
+
+## Memory Model
+
+この repo の中心は、Obsidian を主役にすることではなく、「先に断片を逃がし、あとで本当に使うものだけ残す」流れを Codex hook で支えることです。
+
+### 何を読むか
+
+自動で読む対象は次の 2 系統だけです。
+
+- `episodes/ultra_short/*.md` の直近エントリ
+- 現在の project に一致した `episodes/*.md` の recent note
 
 `knowledge/rules/` と `knowledge/projects/` は常時総なめしません。必要になったときだけ参照する前提です。
 
-## これは何を書くか
+### 何を書くか
 
-この starter が自動で書く対象は次の 2 系統です。
+自動で書く対象は次の 2 系統です。
 
 - `ultra_short`
-  送信した prompt の断片を、その場で判断せずに退避する混在 inbox
+  送信した prompt の断片を、その場で判断せず退避する mixed inbox
 - `episodes`
   project と関係がある prompt や、会話の意味ある区切りを短い bullet で残す短中期メモ
 
-`knowledge` は自動で肥大化させません。長く残す value があるものだけ、人間が昇格させる前提です。
+`knowledge` は最初から自動で肥大化させません。長く残す value があるものだけ、人間が昇格させる前提です。
 
-## レイヤーの役割
+### 各レイヤーの役割
 
 - `ultra_short`
   保存時点では価値判断しない即時バッファです。取りこぼし防止が役割です。
@@ -35,7 +83,7 @@
 - `knowledge`
   durable な rules / decisions / projects だけを置く層です。全部を入れる棚ではありません。
 
-## ディレクトリ構成
+## Repository Layout
 
 ```text
 codex-obsidian-memory-starter/
@@ -50,21 +98,23 @@ codex-obsidian-memory-starter/
 │   └── user_prompt_submit.py
 ├── scripts/
 │   ├── bootstrap.sh
+│   ├── publish-private.sh
 │   └── uninstall.sh
 └── vault/
     ├── episodes/
     │   ├── README.md
     │   └── ultra_short/
     │       └── README.md
-    └── knowledge/
-        ├── projects/
-        └── rules/
+    ├── knowledge/
+    ├── maps/
+    ├── archive/
+    └── templates/
 ```
 
-## 導入手順
+## Quick Start For Readers
 
 1. この repo を clone します。
-2. `config/projects.local.json` を作ります。
+2. `config/projects.local.json` を用意します。
    `./scripts/bootstrap.sh` を最初に実行すると、`config/projects.example.json` から雛形が生成されます。
 3. `config/projects.local.json` の `workspace_hints` と `keywords` を、自分の project に合わせて編集します。
 4. vault の保存先を確認します。
@@ -72,25 +122,22 @@ codex-obsidian-memory-starter/
 5. 既定の検出先を変えたい場合だけ `CODEX_OBSIDIAN_MEMORY_VAULT_ROOT` を指定します。
 6. `./scripts/bootstrap.sh` を実行します。
    これで `~/.codex/hooks.json` に 3 つの hook が追記されます。
-7. Codex を再開し、`SessionStart` の追加 context と `vault/episodes/ultra_short/` の書き込みを確認します。
-8. GitHub へ private repo として上げるときは、`gh auth login` のあとに `./scripts/publish-private.sh` を実行します。
+7. Codex を再開し、`SessionStart` の追加 context と `episodes/ultra_short/` の書き込みを確認します。
 
-## いちばん短いセットアップ例
+最短の実行例:
 
 ```bash
 cd /path/to/codex-obsidian-memory-starter
 ./scripts/bootstrap.sh
 ```
 
-そのあとに `config/projects.local.json` を編集して、自分の workspace と project note を紐づけてください。
-
-既定の Vault 検出先を上書きする例:
+Vault 検出先を上書きする例:
 
 ```bash
 CODEX_OBSIDIAN_MEMORY_VAULT_ROOT="/path/to/your/ObsidianVault" ./scripts/bootstrap.sh
 ```
 
-## 設定ファイル
+## Configuration
 
 ### `config/projects.local.json`
 
@@ -107,29 +154,29 @@ project 判定のためのローカル設定です。各要素は次の意味で
 - `related_rules`
   必要時に参照する rule note の相対パス
 
-## hook 設定
+### `config/hooks.sample.json`
 
-`config/hooks.sample.json` に配布用のサンプルがあります。実際の導入では、`bootstrap.sh` がこの repo の絶対パスを埋め込んだ形で `~/.codex/hooks.json` を更新します。
+配布用のサンプルです。実際の導入では、`bootstrap.sh` が repo の絶対パスを埋め込んだ形で `~/.codex/hooks.json` を更新します。
 
-## rollback / uninstall
+## Rollback / Uninstall
 
-hook だけ外したい場合は次を実行します。
+hook だけ外したい場合:
 
 ```bash
 ./scripts/uninstall.sh
 ```
 
-この script は `~/.codex/hooks.json` からこの starter の hook だけを削除します。vault 内の note は消しません。
+この script は `~/.codex/hooks.json` からこの starter の hook だけを削除します。Vault 内の note は消しません。
 
 完全に巻き戻す場合:
 
 1. `./scripts/uninstall.sh` を実行する
 2. `config/projects.local.json` を削除する
-3. 必要なら `vault/episodes/` 以下の生成 note を手動で削除する
+3. 必要なら生成された `episodes/` 配下の note を手動で削除する
 
-## GitHub へ private 公開する
+## GitHub Publication Flow
 
-この repo には publish 補助 script を入れています。
+この repo 自体を GitHub に上げる場合は、まず `private` を既定にしてください。
 
 ```bash
 gh auth login
@@ -138,7 +185,9 @@ gh auth login
 
 既定の repo 名は `codex-obsidian-memory-starter` です。script は private repo を作成し、`origin` を設定して `main` を push します。
 
-## 秘密情報の扱い
+public に切り替える前にやることは、[PUBLICATION.md](./PUBLICATION.md) に分離しています。
+
+## Secrets And Non-Public Data
 
 この repo に入れない前提のもの:
 
@@ -146,30 +195,19 @@ gh auth login
 - token 類
 - `~/.codex/hooks/logs/` の実ログ
 - `~/.codex/hooks/state/` の実データ
-- 個人的な vault 本文
+- 個人的な Vault 本文
 - ユーザー依存のホームディレクトリ絶対パスを埋め込んだままの設定
 
 `.gitignore` でも、ローカル設定と生成 note は既定で除外しています。
 
-## 公開前チェック
+## Related Article
 
-public に切り替える前に、少なくとも次を確認してください。
+関連する記事は未公開です。公開後にここへ URL を追記してください。
 
-1. `config/projects.local.json` が commit 対象に入っていない
-2. `vault/episodes/` に自分の実メモが混ざっていない
-3. `rg 'auth.json|token|secret|session=' .` で意図しない露出がない
-4. repo 説明が記事本文と矛盾していない
+現時点では、この記事がなくても GitHub 上の README だけで何を配っているか分かる構成を優先しています。
 
-## 記事との対応
+## Limits
 
-記事と揃えて読むなら、説明の軸は次の 3 点です。
-
-- 何を読むか: `ultra_short` と recent `episodes` を少量だけ読む
-- 何を書くか: prompt 断片を `ultra_short` に、意味のある区切りを `episodes` に書く
-- `knowledge` の扱い: 最初から何でも長期保存しない
-
-## 注意
-
-- これはスターターです。project ごとの durable 昇格 heuristics までは自動化していません。
+- これは starter です。project ごとの durable 昇格 heuristics までは自動化していません。
 - `knowledge` への昇格は、人間が運用しながら決める前提です。
-- public 配布前に license は別途選んでください。既定では private repo 運用を想定しています。
+- 作者の実運用そのものではなく、読者向け再現パックです。
