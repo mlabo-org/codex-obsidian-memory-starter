@@ -15,7 +15,7 @@
 
 - Related article: `TBD`
 - Demo / screenshots: `TBD`
-- License: `TBD`
+- License: `MIT`
 
 ## Who This Is For
 
@@ -205,6 +205,10 @@ public に切り替える前にやることは、[PUBLICATION.md](./PUBLICATION.
 関連する記事は未公開です。公開後にここへ URL を追記してください。
 
 現時点では、この記事がなくても GitHub 上の README だけで何を配っているか分かる構成を優先しています。
+
+## License
+
+This repository is licensed under the [MIT License](./LICENSE).
 
 ## Limits
 

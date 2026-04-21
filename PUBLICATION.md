@@ -7,7 +7,6 @@
 - 記事 URL
 - README 冒頭の公開文言
 - スクリーンショットやデモ画像
-- License
 
 ## private のうちに確認すること
 
@@ -25,8 +24,6 @@
   `Status`
 - `README.md`
   `Related article`
-- `README.md`
-  `License`
 - 必要なら repo description
 
 ## 公開順序
