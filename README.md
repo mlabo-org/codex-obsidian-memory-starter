@@ -7,13 +7,13 @@
 ## Status
 
 - 現在は公開準備中の starter です
-- 関連記事は未公開です
-- 記事 URL や最終的な公開文言は、記事確定後に差し替える前提です
+- 関連記事の URL は確定しています
+- 記事 URL 反映済みです
 - GitHub へ上げる場合も、まずは `private` で確認してから `public` に切り替える想定です
 
 記事公開後に追記する想定の欄:
 
-- Related article: `TBD`
+- Related article: `https://gpt4jp.com/1985/`
 - Demo / screenshots: `TBD`
 - License: `MIT`
 
@@ -202,9 +202,11 @@ public に切り替える前にやることは、[PUBLICATION.md](./PUBLICATION.
 
 ## Related Article
 
-関連する記事は未公開です。公開後にここへ URL を追記してください。
+関連する記事はこちらです。
 
-現時点では、この記事がなくても GitHub 上の README だけで何を配っているか分かる構成を優先しています。
+- [Codex hooks と Obsidian で作る海馬的超短期型の外部記憶運用](https://gpt4jp.com/1985/)
+
+この README は、記事を読まなくても GitHub 上だけで何を配っているか分かる構成を優先しています。
 
 ## License
 
