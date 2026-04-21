@@ -1,8 +1,10 @@
 # codex-obsidian-memory-starter
 
-`Codex hooks` と `Obsidian` を使って、episode-first の外部記憶運用を自分の環境で再現するための starter repository です。
+`Codex hooks` を使って、episode-first の外部記憶運用を自分の環境で再現するための starter repository です。
 
-この repo は、作者の実運用環境そのものを配るものではありません。読者が clone して、自分の Vault と自分の workspace に合わせて最小構成から組み立て直せるように、配布向けに一般化した再現パックです。
+保存先は Obsidian-compatible な Markdown directory を想定していますが、Obsidian 自体は必須ではありません。Obsidian は人間が中身を確認しやすくするための viewer として相性がよいだけで、hook の動作条件ではありません。
+
+この repo は、作者の実運用環境そのものを配るものではありません。読者が clone して、自分の Markdown 保存先と自分の workspace に合わせて最小構成から組み立て直せるように、配布向けに一般化した再現パックです。
 
 人間向けに一言で言うと、これは「GUI Codex で開いて、その Codex 自身に導入と検証を進めさせるための Codex-assisted installer」です。
 
