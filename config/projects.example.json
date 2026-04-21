@@ -1,16 +1,31 @@
 {
   "projects": [
     {
-      "project_id": "sample-project",
-      "project_note": "knowledge/projects/sample-project.md",
+      "project_id": "obsidian-memory-system",
+      "project_note": "knowledge/projects/obsidian-memory-system.md",
       "workspace_hints": [
-        "/path/to/your/workspace"
+        "__REPO_ROOT__",
+        "__CODEX_HOME__",
+        "__VAULT_ROOT__"
       ],
       "keywords": [
-        "sample",
         "memory",
         "obsidian",
-        "hooks"
+        "external memory",
+        "episode",
+        "knowledge",
+        "hook",
+        "hooks",
+        "hippocampus",
+        "write timing",
+        "startup recall",
+        "海馬",
+        "記憶",
+        "記録",
+        "運用",
+        "再現性",
+        "自律",
+        "判断"
       ],
       "related_rules": [
         "knowledge/rules/episode-write-timing.md"

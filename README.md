@@ -117,12 +117,55 @@ codex-obsidian-memory-starter/
 2. `config/projects.local.json` を用意します。
    `./scripts/bootstrap.sh` を最初に実行すると、`config/projects.example.json` から雛形が生成されます。
 3. `config/projects.local.json` の `workspace_hints` と `keywords` を、自分の project に合わせて編集します。
+   既定の生成先は `~/.codex/hooks/obsidian-memory-starter/config/projects.local.json` です。最初から `obsidian-memory-system` 用の preset と、現在の clone 先に合わせた `workspace_hints` が入ります。
 4. vault の保存先を確認します。
-   `bootstrap.sh` は既定で `~/Library/Application Support/obsidian/obsidian.json` を見て、現在開いている Obsidian Vault を優先します。検出できない場合だけ、この repo 内の `vault/` に落ちます。
+   `bootstrap.sh` は既定で `~/Library/Application Support/obsidian/obsidian.json` を見て、現在開いている Obsidian Vault を優先します。Obsidian が無い場合や、その検出を使いたくない場合は、この repo 内の `vault/` か、`CODEX_OBSIDIAN_MEMORY_VAULT_ROOT` で指定した任意の Markdown ディレクトリを使えます。
 5. 既定の検出先を変えたい場合だけ `CODEX_OBSIDIAN_MEMORY_VAULT_ROOT` を指定します。
 6. `./scripts/bootstrap.sh` を実行します。
-   これで `~/.codex/hooks.json` に 3 つの hook が追記されます。
+   これで `~/.codex/hooks.json` に 3 つの hook が追記され、hook 実体は `~/.codex/hooks/obsidian-memory-starter/` に install されます。
 7. Codex を再開し、`SessionStart` の追加 context と `episodes/ultra_short/` の書き込みを確認します。
+
+重要:
+
+- この repo は作者環境の丸写しではありません
+- clone 後は、使う人の `workspace_hints`、Vault root、project 名、keywords に合わせて調整する前提です
+- Codex に導入を任せる場合は、repo 直下の [AGENTS.md](./AGENTS.md) と [CODEX_SETUP.md](./CODEX_SETUP.md) を読ませると、利用者環境へ寄せる前提を取りやすくなります
+- 細かい path や hook 共存の調整は、Codex にこの repo を読ませて処理させるほうがだいぶ楽です
+
+## Codex-Assisted Install
+
+この starter は、ある意味で Codex 込みの installer です。
+
+- 固定 script がやるのは hook 配線と seed までです
+- 最後の環境適応は、repo を開いた Codex に担当させる前提で作っています
+- `workspace_hints`、Vault root、既存 hooks 共存、導入後の検証まで含めて Codex にやらせると楽です
+- [scripts/verify_install.sh](./scripts/verify_install.sh) を使えば、one-shot の install self-check まで回せます
+
+Codex に渡す prompt を出したい場合:
+
+```bash
+./scripts/print_codex_installer_prompt.sh
+```
+
+この出力をそのまま GUI Codex に渡してください。関連ファイル:
+
+- [AGENTS.md](./AGENTS.md)
+- [CODEX_SETUP.md](./CODEX_SETUP.md)
+- [CODEX_INSTALLER.md](./CODEX_INSTALLER.md)
+
+ハナホジ寄りの最短ルート:
+
+1. repo を clone する
+2. GUI Codex でこの repo を開く
+3. `./scripts/print_codex_installer_prompt.sh` を実行する
+4. その出力を Codex に渡す
+5. Codex に `bootstrap.sh` と `verify_install.sh` までやらせる
+
+verify だけ単独で回したい場合:
+
+```bash
+./scripts/verify_install.sh
+```
 
 最短の実行例:
 
@@ -156,7 +199,20 @@ project 判定のためのローカル設定です。各要素は次の意味で
 
 ### `config/hooks.sample.json`
 
-配布用のサンプルです。実際の導入では、`bootstrap.sh` が repo の絶対パスを埋め込んだ形で `~/.codex/hooks.json` を更新します。
+配布用のサンプルです。実際の導入では、`bootstrap.sh` が `~/.codex/hooks/obsidian-memory-starter/` へ hook 実体を install し、その絶対パスを `~/.codex/hooks.json` に書き込みます。
+
+### install 後の配置
+
+- `~/.codex/hooks.json`
+  Codex 本体が読む hook 登録先
+- `~/.codex/hooks/obsidian-memory-starter/hooks/*.py`
+  実行される hook script
+- `~/.codex/hooks/obsidian-memory-starter/config/projects.local.json`
+  project 判定のローカル設定
+- `VAULT_ROOT/knowledge/rules/episode-write-timing.md`
+  外部 Vault を使う場合でも未存在なら seed される sample rule
+- `VAULT_ROOT/knowledge/projects/obsidian-memory-system.md`
+  外部 Vault を使う場合でも未存在なら seed される default project note
 
 ## Rollback / Uninstall
 
@@ -167,6 +223,11 @@ hook だけ外したい場合:
 ```
 
 この script は `~/.codex/hooks.json` からこの starter の hook だけを削除します。Vault 内の note は消しません。
+
+既存 hook との共存方針:
+
+- `bootstrap.sh` は既存の `~/.codex/hooks.json` を上書きせず、他の hook entry は残したまま、この starter が管理する 3 本だけを差し替えます。
+- `uninstall.sh` も、この starter が入れた 3 本だけを削除します。
 
 完全に巻き戻す場合:
 

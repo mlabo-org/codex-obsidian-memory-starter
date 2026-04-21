@@ -46,6 +46,10 @@ ULTRA_SHORT_TTL_DAYS = int(
 )
 AUTO_PRUNE_STATUSES = {"active"}
 SUPPRESS_PATTERNS = (
+    "external memory読まない",
+    "recent episodes なし",
+    "recent episodesなし",
+    "memory読まない",
     "read no external memory",
     "do not read external memory",
     "memory を読まない",
@@ -200,7 +204,7 @@ def maybe_capture_episode(payload: dict[str, Any]) -> None:
         return
 
     project = match_projects(combined, payload.get("cwd", ""))
-    if not project or memory_signal_score(combined, project) < 2:
+    if not project or memory_signal_score(combined, project) < 3:
         return
 
     STATE_DIR.mkdir(parents=True, exist_ok=True)
@@ -228,7 +232,7 @@ def maybe_capture_user_prompt(payload: dict[str, Any]) -> None:
         return
 
     project = match_projects(prompt, payload.get("cwd", ""))
-    if not project or memory_signal_score(prompt, project) < 2:
+    if not project or memory_signal_score(prompt, project) < 3:
         return
 
     STATE_DIR.mkdir(parents=True, exist_ok=True)
@@ -432,7 +436,7 @@ def memory_signal_score(text: str, project: MemoryProject) -> int:
     for keyword in project.keywords:
         if keyword.lower() in lowered:
             score += 1
-    for keyword in ("must", "should", "rule", "rules", "policy", "memory", "episode", "hook", "記録", "運用"):
+    for keyword in ("must", "should", "rule", "rules", "policy", "運用", "既定", "判断", "記録", "書き込", "再現性"):
         if keyword.lower() in lowered:
             score += 1
     return score
@@ -540,12 +544,40 @@ def append_ultra_short_entry(
 
 
 def summarize_turn(user_message: str, assistant_message: str) -> str:
+    combined = f"{user_message}\n{assistant_message}".lower()
+    if "hook" in combined and any(token in combined for token in ("obsidian", "memory", "海馬")):
+        return "Configured or evaluated Codex Hooks as an automation layer for the episode-first external-memory workflow."
+    if any(token in combined for token in ("write timing", "書き込", "記録")) and any(
+        token in combined for token in ("episode", "memory", "海馬")
+    ):
+        return "Reinforced that episode writes should happen at meaningful boundaries instead of remaining in indefinite reserve."
+    if any(token in combined for token in ("自律", "autonomy", "判断")) and any(
+        token in combined for token in ("再現性", "運用", "rules", "rule")
+    ):
+        return "Linked autonomous judgment to stable operating rules and reproducible behavior rather than ad hoc choices."
+    if any(token in combined for token in ("obsidian", "海馬", "episode-first")):
+        return "Discussed the Obsidian episode-first memory model as operating discipline rather than a need to replay every past episode."
+
     user_excerpt = compact_excerpt(user_message, 120)
     assistant_excerpt = compact_excerpt(assistant_message, 120)
     return f'User "{user_excerpt}" / Assistant "{assistant_excerpt}"'
 
 
 def summarize_user_prompt(user_message: str) -> str:
+    combined = user_message.lower()
+    if any(token in combined for token in ("リアルタイム", "real-time", "real time")) and any(
+        token in combined for token in ("記録", "write", "episode", "memory")
+    ):
+        return "Raised the requirement that memory capture happen in real time so a context switch to a new session does not lose the current insight."
+    if any(token in combined for token in ("次のセッション", "new session", "別セッション")) and any(
+        token in combined for token in ("どうなる", "lose", "間に合", "タイミング")
+    ):
+        return "Asked for the external-memory system to preserve important prompts even if a new session starts immediately after the user submits them."
+    if any(token in combined for token in ("hook", "hooks")) and any(
+        token in combined for token in ("記録", "memory", "obsidian", "海馬")
+    ):
+        return "Connected Hooks directly to the requirement for immediate external-memory capture."
+
     excerpt = compact_excerpt(user_message, 140)
     return f'User raised a memory-relevant prompt: "{excerpt}"'
 
