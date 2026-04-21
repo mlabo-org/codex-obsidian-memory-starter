@@ -8,7 +8,13 @@
 
 人間向けに一言で言うと、これは「GUI Codex で開いて、その Codex 自身に導入と検証を進めさせるための Codex-assisted installer」です。
 
-読者向けの最短メッセージ:
+最初に Codex へ渡すプロンプトは、これで足ります。
+
+```text
+https://github.com/mlabo-org/codex-obsidian-memory-starter を clone して開き、この repo を installer として扱ってください。AGENTS.md、CODEX_SETUP.md、CODEX_INSTALLER.md、README.md を読み、scripts/print_codex_installer_prompt.sh を自分で実行して、bootstrap.sh と verify_install.sh まで完了してください。
+```
+
+読者向けの最短メッセージを人間向けに言い換えると、こうです。
 
 - GUI Codex にこの repo を clone / open させる
 - Codex 自身に `AGENTS.md`、`CODEX_SETUP.md`、`CODEX_INSTALLER.md` を読ませる
@@ -16,12 +22,6 @@
 - そのまま Codex に `bootstrap.sh` と `verify_install.sh` まで最後までやらせる
 
 手で順番に入れたい人向けの説明は、後ろの `Manual Install` に一応まとめています。まずは Codex に丸投げする前提で読んでください。
-
-人間が最初に Codex へ投げる最短依頼は、この 1 本で足ります。
-
-```text
-この repo を clone して開き、AGENTS.md と CODEX_SETUP.md と CODEX_INSTALLER.md を読んだうえで、scripts/print_codex_installer_prompt.sh を自分で実行し、その内容に従って bootstrap.sh と verify_install.sh まで進めてください。
-```
 
 ## Status
 
@@ -141,6 +141,12 @@ codex-obsidian-memory-starter/
 - 人間は GUI Codex に「この repo を取って install して verify までやって」と頼む
 - Codex は `AGENTS.md`、`CODEX_SETUP.md`、`CODEX_INSTALLER.md` を読む
 - その Codex が利用者環境へ合わせて install と verify を進める
+
+最初に Codex へ投げる 1 本は、これを想定しています。
+
+```text
+https://github.com/mlabo-org/codex-obsidian-memory-starter を clone して開き、この repo を installer として扱ってください。AGENTS.md、CODEX_SETUP.md、CODEX_INSTALLER.md、README.md を読み、scripts/print_codex_installer_prompt.sh を自分で実行して、bootstrap.sh と verify_install.sh まで完了してください。
+```
 
 README を人間が上から読むより先に、読者の Codex が repo の意図を読んで張り切って動き出す構成を狙っています。
 
