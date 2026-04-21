@@ -14,7 +14,7 @@
 記事公開後に追記する想定の欄:
 
 - Related article: `https://gpt4jp.com/1985/`
-- Demo / screenshots: `assets/screenshots/` を先に用意済み、実画像は追加待ち
+- Demo / screenshots: `assets/screenshots/` に静止画 2 枚を追加済み
 - License: `MIT`
 
 ## Who This Is For
@@ -212,12 +212,20 @@ public に切り替える前にやることは、[PUBLICATION.md](./PUBLICATION.
 
 この repo では、まず静止画 2 枚を用意する前提にしています。動画 demo は任意です。
 
-想定している静止画:
+追加済みの静止画:
 
 - `assets/screenshots/session-start-context.png`
   Codex 側で `SessionStart` の追加 context が見えている画面
 - `assets/screenshots/obsidian-memory-notes.png`
   Obsidian 側で `ultra_short` と `episodes` が見えている画面
+
+![SessionStart additional context](./assets/screenshots/session-start-context.png)
+
+`SessionStart` では vault 全体を読まず、直近の `ultra_short` と recent `episodes` だけを少量読みます。
+
+![Obsidian memory notes](./assets/screenshots/obsidian-memory-notes.png)
+
+保存先は Obsidian で読める Markdown ですが、運用の主役は GUI ではなく hook 側の自動記録です。
 
 任意の demo:
 

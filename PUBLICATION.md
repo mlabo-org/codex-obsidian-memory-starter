@@ -5,7 +5,6 @@
 ## まだ確定してから公開するもの
 
 - README 冒頭の公開文言
-- `assets/screenshots/` の実画像
 - 任意なら `assets/demo/` の短い動画
 
 ## private のうちに確認すること
