@@ -4,6 +4,16 @@
 
 この repo は、作者の実運用環境そのものを配るものではありません。読者が clone して、自分の Vault と自分の workspace に合わせて最小構成から組み立て直せるように、配布向けに一般化した再現パックです。
 
+人間向けに一言で言うと、これは「GUI Codex で開いて、その Codex 自身に導入と検証を進めさせるための Codex-assisted installer」です。
+
+読者向けの最短メッセージ:
+
+1. この repo を clone する
+2. GUI Codex でこの repo を開く
+3. `./scripts/print_codex_installer_prompt.sh` を実行する
+4. その出力を Codex に渡す
+5. Codex に install と verify を最後までやらせる
+
 ## Status
 
 - 現在は公開準備中の starter です
@@ -115,7 +125,15 @@ codex-obsidian-memory-starter/
 
 読者に最初に案内したいルートはこれです。手動導入より先にこちらを使う想定です。
 
-この starter は、ある意味で Codex 込みの installer です。
+この starter は、かなり露骨に「読者の Codex が repo を読んだら installer モードに入る」前提で作っています。
+
+言い換えると:
+
+- 人間は repo を clone して GUI Codex で開く
+- Codex は `AGENTS.md`、`CODEX_SETUP.md`、`CODEX_INSTALLER.md` を読む
+- その Codex が利用者環境へ合わせて install と verify を進める
+
+README を人間が上から読むより先に、読者の Codex が repo の意図を読んで張り切って動き出す構成を狙っています。
 
 - 固定 script がやるのは hook 配線と seed までです
 - 最後の環境適応は、repo を開いた Codex に担当させる前提で作っています
@@ -127,6 +145,14 @@ codex-obsidian-memory-starter/
 - この repo は作者環境の丸写しではありません
 - clone 後は、使う人の `workspace_hints`、Vault root、project 名、keywords に合わせて調整する前提です
 - 細かい path や hook 共存の調整は、Codex にこの repo を読ませて処理させるほうがだいぶ楽です
+
+まず人間がやること:
+
+```bash
+./scripts/print_codex_installer_prompt.sh
+```
+
+その出力を GUI Codex に渡してください。そこから先は、Codex が installer として動く前提です。
 
 Codex に渡す prompt を出したい場合:
 
