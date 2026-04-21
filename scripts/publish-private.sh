@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 REPO_NAME="${CODEX_OBSIDIAN_MEMORY_REPO_NAME:-codex-obsidian-memory-starter}"
-DESCRIPTION="${CODEX_OBSIDIAN_MEMORY_REPO_DESCRIPTION:-Starter for an episode-first Codex hooks + Obsidian external memory workflow.}"
+DESCRIPTION="${CODEX_OBSIDIAN_MEMORY_REPO_DESCRIPTION:-Codex-assisted starter for an episode-first external-memory hook workflow using Obsidian-readable Markdown storage.}"
 
 if ! command -v gh >/dev/null 2>&1; then
   echo "gh is required. Install GitHub CLI first."

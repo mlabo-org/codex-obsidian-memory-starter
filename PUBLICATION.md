@@ -1,13 +1,12 @@
 # Publication Checklist
 
-このファイルは、GitHub へ `public` 公開する直前の確認用です。
+このファイルは、GitHub へ `public` 公開する直前の最終確認用です。
 
-## まだ確定してから公開するもの
+## 任意で追加するもの
 
-- README 冒頭の公開文言
 - 任意なら `assets/demo/` の短い動画
 
-## private のうちに確認すること
+## 公開前に確認すること
 
 1. `config/projects.local.json` が commit 対象に入っていない
 2. `episodes/` に実メモが混ざっていない
@@ -18,18 +17,16 @@
 7. repo 説明が「作者の実データ配布」ではなく「再現用 starter」になっている
 8. スクリーンショットに private note 本文や token が写っていない
 
-## public にする直前の差し替え箇所
+## 公開前の最終確認箇所
 
 - `README.md`
   `Status`
-- `README.md`
-  `Related article`
 - 必要なら repo description
 
 ## 公開順序
 
 1. private repo として push する
 2. GitHub 上で README 表示とファイル一覧を確認する
-3. 記事 URL と最終文言を反映する
+3. README と repo description の最終文言を確認する
 4. もう一度 secret 混入チェックをする
 5. そのあとで public に切り替える
