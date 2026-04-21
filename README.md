@@ -2,7 +2,7 @@
 
 `Codex hooks` を使って、episode-first の外部記憶運用を自分の環境で再現するための starter repository です。
 
-保存先は Obsidian-compatible な Markdown directory を想定していますが、Obsidian 自体は必須ではありません。Obsidian は人間が中身を確認しやすくするための viewer として相性がよいだけで、hook の動作条件ではありません。
+採用しているのは、Obsidian が理解しやすい frontmatter / ディレクトリ構成を持つ Markdown 形式だけです。Obsidian 自体は必須ではありません。Obsidian は人間が中身を確認しやすい viewer として相性がよいだけで、hook の動作条件ではありません。
 
 この repo は、作者の実運用環境そのものを配るものではありません。読者が clone して、自分の Markdown 保存先と自分の workspace に合わせて最小構成から組み立て直せるように、配布向けに一般化した再現パックです。
 
@@ -34,7 +34,7 @@
 この repo は次の人向けです。
 
 - Codex の hook を使って会話の断片を外部化したい人
-- Obsidian を knowledge-first ではなく episode-first の保存庫として使いたい人
+- Obsidian-readable な Markdown 形式で external memory を持ちたい人
 - 自分の環境に合わせて `workspace_hints` や project note を調整できる人
 
 逆に、作者の Vault をそのまま欲しい人向けではありません。実データや個人的 note 本文は含めません。
@@ -64,7 +64,7 @@
 
 ## Memory Model
 
-この repo の中心は、Obsidian を主役にすることではなく、「先に断片を逃がし、あとで本当に使うものだけ残す」流れを Codex hook で支えることです。
+この repo の中心は、Obsidian を主役にすることではなく、「先に断片を逃がし、あとで本当に使うものだけ残す」流れを Codex hook で支えることです。保存形式が Obsidian-readable な Markdown であることと、Obsidian を必須アプリとして採用していることは別物です。
 
 ### 何を読むか
 
@@ -317,7 +317,7 @@ public に切り替える前にやることは、[PUBLICATION.md](./PUBLICATION.
 
 ![Obsidian memory notes](./assets/screenshots/obsidian-memory-notes.png)
 
-保存先は Obsidian で読める Markdown ですが、運用の主役は GUI ではなく hook 側の自動記録です。
+保存先は Obsidian が読める Markdown 形式ですが、運用の主役は GUI ではなく hook 側の自動記録です。
 
 任意の demo:
 
