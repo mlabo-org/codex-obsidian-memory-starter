@@ -111,28 +111,9 @@ codex-obsidian-memory-starter/
     └── templates/
 ```
 
-## Quick Start For Readers
-
-1. この repo を clone します。
-2. `config/projects.local.json` を用意します。
-   `./scripts/bootstrap.sh` を最初に実行すると、`config/projects.example.json` から雛形が生成されます。
-3. `config/projects.local.json` の `workspace_hints` と `keywords` を、自分の project に合わせて編集します。
-   既定の生成先は `~/.codex/hooks/obsidian-memory-starter/config/projects.local.json` です。最初から `obsidian-memory-system` 用の preset と、現在の clone 先に合わせた `workspace_hints` が入ります。
-4. vault の保存先を確認します。
-   `bootstrap.sh` は既定で `~/Library/Application Support/obsidian/obsidian.json` を見て、現在開いている Obsidian Vault を優先します。Obsidian が無い場合や、その検出を使いたくない場合は、この repo 内の `vault/` か、`CODEX_OBSIDIAN_MEMORY_VAULT_ROOT` で指定した任意の Markdown ディレクトリを使えます。
-5. 既定の検出先を変えたい場合だけ `CODEX_OBSIDIAN_MEMORY_VAULT_ROOT` を指定します。
-6. `./scripts/bootstrap.sh` を実行します。
-   これで `~/.codex/hooks.json` に 3 つの hook が追記され、hook 実体は `~/.codex/hooks/obsidian-memory-starter/` に install されます。
-7. Codex を再開し、`SessionStart` の追加 context と `episodes/ultra_short/` の書き込みを確認します。
-
-重要:
-
-- この repo は作者環境の丸写しではありません
-- clone 後は、使う人の `workspace_hints`、Vault root、project 名、keywords に合わせて調整する前提です
-- Codex に導入を任せる場合は、repo 直下の [AGENTS.md](./AGENTS.md) と [CODEX_SETUP.md](./CODEX_SETUP.md) を読ませると、利用者環境へ寄せる前提を取りやすくなります
-- 細かい path や hook 共存の調整は、Codex にこの repo を読ませて処理させるほうがだいぶ楽です
-
 ## Codex-Assisted Install
+
+読者に最初に案内したいルートはこれです。手動導入より先にこちらを使う想定です。
 
 この starter は、ある意味で Codex 込みの installer です。
 
@@ -140,6 +121,12 @@ codex-obsidian-memory-starter/
 - 最後の環境適応は、repo を開いた Codex に担当させる前提で作っています
 - `workspace_hints`、Vault root、既存 hooks 共存、導入後の検証まで含めて Codex にやらせると楽です
 - [scripts/verify_install.sh](./scripts/verify_install.sh) を使えば、one-shot の install self-check まで回せます
+
+重要:
+
+- この repo は作者環境の丸写しではありません
+- clone 後は、使う人の `workspace_hints`、Vault root、project 名、keywords に合わせて調整する前提です
+- 細かい path や hook 共存の調整は、Codex にこの repo を読ませて処理させるほうがだいぶ楽です
 
 Codex に渡す prompt を出したい場合:
 
@@ -167,7 +154,23 @@ verify だけ単独で回したい場合:
 ./scripts/verify_install.sh
 ```
 
-最短の実行例:
+## Manual Install
+
+Codex に導入を任せず、自分で順番に実行したい場合だけこの節を使ってください。
+
+1. この repo を clone します。
+2. `config/projects.local.json` を用意します。
+   `./scripts/bootstrap.sh` を最初に実行すると、`config/projects.example.json` から雛形が生成されます。
+3. `config/projects.local.json` の `workspace_hints` と `keywords` を、自分の project に合わせて編集します。
+   既定の生成先は `~/.codex/hooks/obsidian-memory-starter/config/projects.local.json` です。最初から `obsidian-memory-system` 用の preset と、現在の clone 先に合わせた `workspace_hints` が入ります。
+4. vault の保存先を確認します。
+   `bootstrap.sh` は既定で `~/Library/Application Support/obsidian/obsidian.json` を見て、現在開いている Obsidian Vault を優先します。Obsidian が無い場合や、その検出を使いたくない場合は、この repo 内の `vault/` か、`CODEX_OBSIDIAN_MEMORY_VAULT_ROOT` で指定した任意の Markdown ディレクトリを使えます。
+5. 既定の検出先を変えたい場合だけ `CODEX_OBSIDIAN_MEMORY_VAULT_ROOT` を指定します。
+6. `./scripts/bootstrap.sh` を実行します。
+   これで `~/.codex/hooks.json` に 3 つの hook が追記され、hook 実体は `~/.codex/hooks/obsidian-memory-starter/` に install されます。
+7. Codex を再開し、`SessionStart` の追加 context と `episodes/ultra_short/` の書き込みを確認します。
+
+最短の手動実行例:
 
 ```bash
 cd /path/to/codex-obsidian-memory-starter
