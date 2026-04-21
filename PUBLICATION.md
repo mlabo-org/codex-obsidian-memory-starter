@@ -5,7 +5,8 @@
 ## まだ確定してから公開するもの
 
 - README 冒頭の公開文言
-- スクリーンショットやデモ画像
+- `assets/screenshots/` の実画像
+- 任意なら `assets/demo/` の短い動画
 
 ## private のうちに確認すること
 
@@ -16,6 +17,7 @@
 5. 記事 URL が README に反映されている
 6. `bootstrap.sh` の既定動作が読者環境向けである
 7. repo 説明が「作者の実データ配布」ではなく「再現用 starter」になっている
+8. スクリーンショットに private note 本文や token が写っていない
 
 ## public にする直前の差し替え箇所
 

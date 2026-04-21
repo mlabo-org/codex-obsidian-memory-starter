@@ -14,7 +14,7 @@
 記事公開後に追記する想定の欄:
 
 - Related article: `https://gpt4jp.com/1985/`
-- Demo / screenshots: `TBD`
+- Demo / screenshots: `assets/screenshots/` を先に用意済み、実画像は追加待ち
 - License: `MIT`
 
 ## Who This Is For
@@ -207,6 +207,24 @@ public に切り替える前にやることは、[PUBLICATION.md](./PUBLICATION.
 - [Codex hooks と Obsidian で作る海馬的超短期型の外部記憶運用](https://gpt4jp.com/1985/)
 
 この README は、記事を読まなくても GitHub 上だけで何を配っているか分かる構成を優先しています。
+
+## Screenshots And Demo
+
+この repo では、まず静止画 2 枚を用意する前提にしています。動画 demo は任意です。
+
+想定している静止画:
+
+- `assets/screenshots/session-start-context.png`
+  Codex 側で `SessionStart` の追加 context が見えている画面
+- `assets/screenshots/obsidian-memory-notes.png`
+  Obsidian 側で `ultra_short` と `episodes` が見えている画面
+
+任意の demo:
+
+- `assets/demo/prompt-to-episode.mp4`
+  prompt 送信から `ultra_short` / `episodes` への反映までを短く見せる動画
+
+撮影方針と差し込み文は [assets/screenshots/README.md](./assets/screenshots/README.md) にまとめています。
 
 ## License
 
