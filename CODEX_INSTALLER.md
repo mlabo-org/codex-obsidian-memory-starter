@@ -14,9 +14,9 @@
 ## Recommended flow
 
 1. この repo を GUI Codex で開く
-2. `AGENTS.md` と `CODEX_SETUP.md` を先に読ませる
-3. `./scripts/print_codex_installer_prompt.sh` を実行して、その出力を Codex に渡す
-4. Codex に ownership-aware install と verify をやらせる
+2. `AGENTS.md` と `CODEX_SETUP.md` と `CODEX_INSTALLER.md` と `README.md` を先に読む
+3. `./scripts/print_codex_installer_prompt.sh` を Codex 自身が実行する
+4. そのまま Codex が ownership-aware install と verify を最後まで進める
 
 ## Why this is useful
 

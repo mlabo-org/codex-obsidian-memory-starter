@@ -13,6 +13,7 @@ ${REPO_ROOT}
 最初に読むファイル:
 - ${REPO_ROOT}/AGENTS.md
 - ${REPO_ROOT}/CODEX_SETUP.md
+- ${REPO_ROOT}/CODEX_INSTALLER.md
 - ${REPO_ROOT}/README.md
 
 やること:
