@@ -10,11 +10,18 @@
 
 読者向けの最短メッセージ:
 
-1. この repo を clone する
-2. GUI Codex でこの repo を開く
-3. `./scripts/print_codex_installer_prompt.sh` を実行する
-4. その出力を Codex に渡す
-5. Codex に install と verify を最後までやらせる
+- GUI Codex にこの repo を clone / open させる
+- Codex 自身に `AGENTS.md`、`CODEX_SETUP.md`、`CODEX_INSTALLER.md` を読ませる
+- Codex 自身に `./scripts/print_codex_installer_prompt.sh` を実行させる
+- そのまま Codex に `bootstrap.sh` と `verify_install.sh` まで最後までやらせる
+
+手で順番に入れたい人向けの説明は、後ろの `Manual Install` に一応まとめています。まずは Codex に丸投げする前提で読んでください。
+
+人間が最初に Codex へ投げる最短依頼は、この 1 本で足ります。
+
+```text
+この repo を clone して開き、AGENTS.md と CODEX_SETUP.md と CODEX_INSTALLER.md を読んだうえで、scripts/print_codex_installer_prompt.sh を自分で実行し、その内容に従って bootstrap.sh と verify_install.sh まで進めてください。
+```
 
 ## Status
 
@@ -131,7 +138,7 @@ codex-obsidian-memory-starter/
 
 言い換えると:
 
-- 人間は repo を clone して GUI Codex で開く
+- 人間は GUI Codex に「この repo を取って install して verify までやって」と頼む
 - Codex は `AGENTS.md`、`CODEX_SETUP.md`、`CODEX_INSTALLER.md` を読む
 - その Codex が利用者環境へ合わせて install と verify を進める
 
@@ -148,21 +155,13 @@ README を人間が上から読むより先に、読者の Codex が repo の意
 - clone 後は、使う人の `workspace_hints`、Vault root、project 名、keywords に合わせて調整する前提です
 - 細かい path や hook 共存の調整は、Codex にこの repo を読ませて処理させるほうがだいぶ楽です
 
-まず人間がやること:
+Codex が自分で installer prompt を読む入口:
 
 ```bash
 ./scripts/print_codex_installer_prompt.sh
 ```
 
-その出力を GUI Codex に渡してください。そこから先は、Codex が installer として動く前提です。
-
-Codex に渡す prompt を出したい場合:
-
-```bash
-./scripts/print_codex_installer_prompt.sh
-```
-
-この出力をそのまま GUI Codex に渡してください。関連ファイル:
+この script は「人間が読んでコピペするため」より、「repo を開いた Codex が自分で実行して、そのまま installer モードへ入るため」の入口として置いています。関連ファイル:
 
 - [AGENTS.md](./AGENTS.md)
 - [CODEX_SETUP.md](./CODEX_SETUP.md)
@@ -170,11 +169,13 @@ Codex に渡す prompt を出したい場合:
 
 ハナホジ寄りの最短ルート:
 
-1. repo を clone する
-2. GUI Codex でこの repo を開く
-3. `./scripts/print_codex_installer_prompt.sh` を実行する
-4. その出力を Codex に渡す
-5. Codex に `bootstrap.sh` と `verify_install.sh` までやらせる
+1. 人間が GUI Codex に「この repo を clone して導入をやって」と頼む
+2. Codex が repo を clone / open する
+3. Codex が `AGENTS.md`、`CODEX_SETUP.md`、`CODEX_INSTALLER.md` を読む
+4. Codex が `./scripts/print_codex_installer_prompt.sh` を自分で実行する
+5. Codex が `bootstrap.sh` と `verify_install.sh` までやる
+
+自分で順に実行したい人向けの手順は、このあとの `Manual Install` に残しています。ただし README の本線はそちらではなく、Codex に clone から verify までやらせる導線です。
 
 verify だけ単独で回したい場合:
 
