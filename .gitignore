@@ -1,0 +1,10 @@
+.DS_Store
+.env
+.env.local
+config/projects.local.json
+vault/episodes/*.md
+!vault/episodes/README.md
+vault/episodes/ultra_short/*.md
+!vault/episodes/ultra_short/README.md
+*.pyc
+__pycache__/

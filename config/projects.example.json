@@ -1,0 +1,20 @@
+{
+  "projects": [
+    {
+      "project_id": "sample-project",
+      "project_note": "knowledge/projects/sample-project.md",
+      "workspace_hints": [
+        "/path/to/your/workspace"
+      ],
+      "keywords": [
+        "sample",
+        "memory",
+        "obsidian",
+        "hooks"
+      ],
+      "related_rules": [
+        "knowledge/rules/episode-write-timing.md"
+      ]
+    }
+  ]
+}

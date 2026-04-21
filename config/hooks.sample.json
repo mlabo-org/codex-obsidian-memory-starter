@@ -1,0 +1,40 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "env CODEX_OBSIDIAN_MEMORY_REPO_ROOT=<ABSOLUTE_PATH_TO_REPO> CODEX_OBSIDIAN_MEMORY_VAULT_ROOT=<ABSOLUTE_PATH_TO_VAULT> CODEX_OBSIDIAN_MEMORY_PROJECTS_FILE=<ABSOLUTE_PATH_TO_PROJECTS_LOCAL_JSON> python3 <ABSOLUTE_PATH_TO_REPO>/hooks/session_start.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "env CODEX_OBSIDIAN_MEMORY_REPO_ROOT=<ABSOLUTE_PATH_TO_REPO> CODEX_OBSIDIAN_MEMORY_VAULT_ROOT=<ABSOLUTE_PATH_TO_VAULT> CODEX_OBSIDIAN_MEMORY_PROJECTS_FILE=<ABSOLUTE_PATH_TO_PROJECTS_LOCAL_JSON> python3 <ABSOLUTE_PATH_TO_REPO>/hooks/user_prompt_submit.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "env CODEX_OBSIDIAN_MEMORY_REPO_ROOT=<ABSOLUTE_PATH_TO_REPO> CODEX_OBSIDIAN_MEMORY_VAULT_ROOT=<ABSOLUTE_PATH_TO_VAULT> CODEX_OBSIDIAN_MEMORY_PROJECTS_FILE=<ABSOLUTE_PATH_TO_PROJECTS_LOCAL_JSON> python3 <ABSOLUTE_PATH_TO_REPO>/hooks/stop.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
