@@ -72,6 +72,7 @@ codex-obsidian-memory-starter/
 5. `./scripts/bootstrap.sh` を実行します。
    これで `~/.codex/hooks.json` に 3 つの hook が追記されます。
 6. Codex を再開し、`SessionStart` の追加 context と `vault/episodes/ultra_short/` の書き込みを確認します。
+7. GitHub へ private repo として上げるときは、`gh auth login` のあとに `./scripts/publish-private.sh` を実行します。
 
 ## いちばん短いセットアップ例
 
@@ -118,6 +119,17 @@ hook だけ外したい場合は次を実行します。
 1. `./scripts/uninstall.sh` を実行する
 2. `config/projects.local.json` を削除する
 3. 必要なら `vault/episodes/` 以下の生成 note を手動で削除する
+
+## GitHub へ private 公開する
+
+この repo には publish 補助 script を入れています。
+
+```bash
+gh auth login
+./scripts/publish-private.sh
+```
+
+既定の repo 名は `codex-obsidian-memory-starter` です。script は private repo を作成し、`origin` を設定して `main` を push します。
 
 ## 秘密情報の扱い
 
