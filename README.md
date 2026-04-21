@@ -67,12 +67,13 @@ codex-obsidian-memory-starter/
 2. `config/projects.local.json` を作ります。
    `./scripts/bootstrap.sh` を最初に実行すると、`config/projects.example.json` から雛形が生成されます。
 3. `config/projects.local.json` の `workspace_hints` と `keywords` を、自分の project に合わせて編集します。
-4. 必要なら `CODEX_OBSIDIAN_MEMORY_VAULT_ROOT` を既存 Obsidian Vault に変更します。
-   既定ではこの repo 内の `vault/` を使います。
-5. `./scripts/bootstrap.sh` を実行します。
+4. vault の保存先を確認します。
+   `bootstrap.sh` は既定で `~/Library/Application Support/obsidian/obsidian.json` を見て、現在開いている Obsidian Vault を優先します。検出できない場合だけ、この repo 内の `vault/` に落ちます。
+5. 既定の検出先を変えたい場合だけ `CODEX_OBSIDIAN_MEMORY_VAULT_ROOT` を指定します。
+6. `./scripts/bootstrap.sh` を実行します。
    これで `~/.codex/hooks.json` に 3 つの hook が追記されます。
-6. Codex を再開し、`SessionStart` の追加 context と `vault/episodes/ultra_short/` の書き込みを確認します。
-7. GitHub へ private repo として上げるときは、`gh auth login` のあとに `./scripts/publish-private.sh` を実行します。
+7. Codex を再開し、`SessionStart` の追加 context と `vault/episodes/ultra_short/` の書き込みを確認します。
+8. GitHub へ private repo として上げるときは、`gh auth login` のあとに `./scripts/publish-private.sh` を実行します。
 
 ## いちばん短いセットアップ例
 
@@ -82,6 +83,12 @@ cd /path/to/codex-obsidian-memory-starter
 ```
 
 そのあとに `config/projects.local.json` を編集して、自分の workspace と project note を紐づけてください。
+
+既定の Vault 検出先を上書きする例:
+
+```bash
+CODEX_OBSIDIAN_MEMORY_VAULT_ROOT="/path/to/your/ObsidianVault" ./scripts/bootstrap.sh
+```
 
 ## 設定ファイル
 

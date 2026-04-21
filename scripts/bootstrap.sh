@@ -4,9 +4,57 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 CODEX_HOME="${CODEX_OBSIDIAN_MEMORY_CODEX_HOME:-$HOME/.codex}"
-VAULT_ROOT="${CODEX_OBSIDIAN_MEMORY_VAULT_ROOT:-$REPO_ROOT/vault}"
 PROJECTS_LOCAL="${CODEX_OBSIDIAN_MEMORY_PROJECTS_FILE:-$REPO_ROOT/config/projects.local.json}"
 HOOKS_JSON="${CODEX_HOME}/hooks.json"
+OBSIDIAN_CONFIG_JSON="${HOME}/Library/Application Support/obsidian/obsidian.json"
+
+detect_obsidian_vault_root() {
+  if [[ -n "${CODEX_OBSIDIAN_MEMORY_VAULT_ROOT:-}" ]]; then
+    printf '%s\n' "${CODEX_OBSIDIAN_MEMORY_VAULT_ROOT}"
+    return
+  fi
+
+  if [[ -f "${OBSIDIAN_CONFIG_JSON}" ]]; then
+    local detected
+    detected="$(
+      python3 <<'PY'
+import json
+from pathlib import Path
+
+config_path = Path.home() / "Library" / "Application Support" / "obsidian" / "obsidian.json"
+try:
+    payload = json.loads(config_path.read_text())
+except Exception:
+    print("")
+    raise SystemExit(0)
+
+vaults = payload.get("vaults", {})
+preferred = None
+fallback = None
+
+for item in vaults.values():
+    path = str(item.get("path", "")).strip()
+    if not path:
+        continue
+    if fallback is None:
+        fallback = path
+    if item.get("open") is True:
+        preferred = path
+        break
+
+print(preferred or fallback or "")
+PY
+    )"
+    if [[ -n "${detected}" ]]; then
+      printf '%s\n' "${detected}"
+      return
+    fi
+  fi
+
+  printf '%s\n' "${REPO_ROOT}/vault"
+}
+
+VAULT_ROOT="$(detect_obsidian_vault_root)"
 
 mkdir -p "${CODEX_HOME}"
 mkdir -p "${VAULT_ROOT}/episodes/ultra_short"
